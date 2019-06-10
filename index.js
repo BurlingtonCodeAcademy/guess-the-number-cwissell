@@ -22,11 +22,10 @@ async function start() {
   console.log(hiLow);
 
   while (hiLow.toUpperCase() !== "YES") {
-    if (max <= min){
-    console.log("Stop Cheating... follow the rules!")}
+    if (min + 1 >= max) { 
+      console.log('No cheating! answer with H/L or Yes') }
      else if (hiLow.toUpperCase() === "L") {
       max = guess;
-
       guessArray.push(guess)
       guess = Math.floor((min + max) / 2);
     } else if (hiLow.toUpperCase() === "H") {
@@ -39,4 +38,4 @@ async function start() {
   }
   console.log("Awesome! Thank You for playing with me.");
   process.exit();
-}//if guesses are more than 8 then mention it is cheating
+}
