@@ -1,4 +1,4 @@
-const readline = require('readline');
+const readline = require("readline");
 const rl = readline.createInterface(process.stdin, process.stdout);
 
 function ask(questionText) {
@@ -10,9 +10,32 @@ function ask(questionText) {
 start();
 
 async function start() {
-  console.log("Let's play a game where you (human) make up a number and I (computer) try to guess it.")
-  let secretNumber = await ask("What is your secret number?\nI won't peek, I promise...\n");
-  console.log('You entered: ' + secretNumber);
-  // Now try and complete the program.
+  let min = 1;
+  let max = 100;
+  let guessArray = []
+  let guess = Math.floor((min + max) / 2);
+  console.log(
+    "Let's play a game. Think of a number between 1-100 and I will try to guess it.\nNow I want you to let me know if I am higher or lower than your number when I guess it.\nPlease respond with H for higher,\nand L for lower for me to understand, Thanks!\nOK now lets begin!"
+  );
+
+  let hiLow = await ask("Is your number " + guess + "? H/L or Yes?");
+  console.log(hiLow);
+
+  while (hiLow.toUpperCase() !== "YES") {
+    if (min + 1 >= max) { 
+      console.log('No cheating! answer with H/L or Yes') }
+     else if (hiLow.toUpperCase() === "L") {
+      max = guess;
+      guessArray.push(guess)
+      guess = Math.floor((min + max) / 2);
+    } else if (hiLow.toUpperCase() === "H") {
+      min = guess;
+      guessArray.push(guess)
+      guess = Math.floor((min + max) / 2);
+  }
+    hiLow = await ask("Is your number " + guess + "? H/L or Yes?");
+   
+  }
+  console.log("Awesome! Thank You for playing with me.");
   process.exit();
 }
